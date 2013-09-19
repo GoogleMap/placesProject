@@ -1,0 +1,34 @@
+<?php
+// Our types
+// src/Bundle/ProjectBundle/Entity/Types.php
+
+namespace Bundle\ProjectBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="Bundle\ProjectBundle\Entity\Repository\TypesRepository")
+ * @ORM\Table(name="types")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Types {
+    
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string",length=30)
+     */
+    
+    protected $type;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Place", mappedBy="type")
+     */
+    protected $typee;
+}
+
+?>

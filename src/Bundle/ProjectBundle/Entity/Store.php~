@@ -1,0 +1,316 @@
+<?php
+
+// src/Bundle/ProjectBundle/Entity/Store.php
+
+namespace Bundle\ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity(repositoryClass="Bundle\ProjectBundle\Entity\Repository\StoreRepository")
+ * @ORM\Table(name="store")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Store {
+    
+    /**
+     * 
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $refId;
+
+    /**
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $refImg;
+
+    /**
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="store")
+     */
+    protected $comments;
+
+    /**
+     *
+     * @ORM\Column(type="string")
+     */
+    protected $vicinity;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    protected $type;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    protected $lat;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    protected $lng;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    protected $rating;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    protected $icon;
+    
+    
+    /**
+     * 
+     * @ORM\Column(type="decimal", precision=3, scale=1)
+     * 
+     */
+    protected $usersRating;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set refId
+     * 
+     * @param string $refId
+     * @return Store
+     */
+    public function setrefId($refId) {
+        $this->refId = $refId;
+    }
+
+    /**
+     * Get refId
+     * 
+     * @return string
+     */
+    public function getrefId() {
+        return $this->refId;
+    }
+
+    /**
+     * Set name
+     * 
+     * @param string $refImg
+     * @return Store
+     */
+    public function setrefImg($refImg) {
+        $this->refImg = $refImg;
+    }
+
+    public function getrefImg() {
+        return $this->refImg;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Store
+     */
+    public function setName($name) {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Set vicinity
+     *
+     * @param string $vicinity
+     * @return Store
+     */
+    public function setVicinity($vicinity) {
+        $this->vicinity = $vicinity;
+
+        return $this;
+    }
+
+    /**
+     * Get vicinity
+     *
+     * @return string 
+     */
+    public function getVicinity() {
+        return $this->vicinity;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Store
+     */
+    public function setType($type) {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType() {
+        return $this->type;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     * @return Store
+     */
+    public function setLat($lat) {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string 
+     */
+    public function getLat() {
+        return $this->lat;
+    }
+
+    /**
+     * Set lng
+     *
+     * @param string $lng
+     * @return Store
+     */
+    public function setLng($lng) {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    /**
+     * Get lng
+     *
+     * @return string 
+     */
+    public function getLng() {
+        return $this->lng;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param string $rating
+     * @return Store
+     */
+    public function setRating($rating) {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return string 
+     */
+    public function getRating() {
+        return $this->rating;
+    }
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     * @return Store
+     */
+    public function setIcon($icon) {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string 
+     */
+    public function getIcon() {
+        return $this->icon;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Bundle\ProjectBundle\Entity\Comment $comments
+     * @return Store
+     */
+    public function addComment(\Bundle\ProjectBundle\Entity\Comment $comments) {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Bundle\ProjectBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Bundle\ProjectBundle\Entity\Comment $comments) {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments() {
+        return $this->comments;
+    }
+
+    public function __construct() {
+        $this->comments = new ArrayCollection();
+
+        
+    }
+
+}

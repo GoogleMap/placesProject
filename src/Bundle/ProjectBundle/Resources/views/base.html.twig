@@ -1,0 +1,76 @@
+{# base template #}
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+        <title>Project | {% block title %}  {% endblock %}</title>
+        
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bundleproject/css/default.css') }}" />
+        {% endblock %}
+            
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+            <script type="text/javascript" src="{{ asset('bundles/bundleproject/js/navigation.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/bundleproject/js/jquery.js') }}"></script>
+    </head>
+    
+    <body>
+        <div id="main_box">
+            
+            <header id="the_header">
+                <!-- <img src="{{ asset('bundles/bundleproject/images/logo.gif') }}" /> -->
+                <h1><big><strong> Places App | Restaurants | Cafe Shop | </strong></big></h1>
+                <br />
+                <br />
+            </header>
+            <div id="flex_div">
+            
+            {% block navigation %}
+                <nav id="nav_bar">
+                    <ul>
+                        <li><p><a href="{{ url('BundleProjectBundle_index') }}">Home</a></p></li>
+                        <li><p><a href="{{ path('BundleProjectBundle_about') }}">About</a></p></li>
+                        <li><p><a href="{{ url('BundleProjectBundle_places') }}">Places Info</a></p></li>
+                        <li><p><a href="{{ url('BundleProjectBundle_about') }}">Credit</a></p></li> 
+                    </ul>
+                </nav>
+            {% endblock %}
+            
+            <section id="main_section">
+                {% block body %}  {% endblock %}
+            </section>
+            
+            <aside id="aside_bar">
+                {% block sidebar %}  {% endblock %}
+            </aside>
+            </div>
+            <footer id="the_footer">
+                {% block footer %} 
+                    <p class="credit">&copy Penatalog Cluj-Napoca 2013.</p>
+                    <p class="credit">&copy Team: Ramona P. , Alin M. & others.</p>
+                    
+                    {# Client Info #}
+                    {% if userIp is defined %}
+                        <p>Addr: {{ userIp }}</p>
+                    {% endif %}
+                        
+                    {% if userSiteHits is defined %}
+                        <p>You visit this site <b>{{ userSiteHits }}</b> time(s).</p>
+                    {% endif %}
+                        {% if browserName is defined %}
+                            {% if browserVers is defined  %}
+                                <p>Browser Name: {{ browserName|capitalize }} <b>v.</b> {{ browserVers }} </p>
+                            {% endif %}
+                    {% endif %}
+                                
+                    {% if allTimeUsers is defined%}
+                            <p>Trafic: <b>{{ allTimeUsers }}</b> unique users all time.</p>
+                    {% endif %}
+                {% endblock %}
+            </footer>  
+        </div>
+            
+        {% block javascript %} 
+        {% endblock %}
+    </body>
+</html>

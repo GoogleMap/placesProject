@@ -1,0 +1,58 @@
+{# contact  #}
+{% extends 'BundleProjectBundle::layout.html.twig' %}
+
+{% block title %} Contact {% endblock %}
+
+{% block body %} 
+    <article>
+        <hgroup>
+            <h1>About</h1>
+            <h2>Info about the project</h2>
+        </hgroup>
+        
+        <p>about page content..<p>   
+    </article>
+
+    <article>
+        <hgroup>
+            <h1>Poll</h1>
+            <h2>Share your thoughts about this platform..</h2>
+        </hgroup>
+         <div id="usersPoll">
+            <h2>Vote section</h2>
+            <p>Poll question..</p>
+            {% if bool is defined %} {# if user already vote #}
+                {% if (yes != 0 or ok != 0 or notReally != 0 or no != 0) %}
+                    <p>Yes: {{ yes }}</p>
+                    <p>It's ok: {{ ok }}</p>
+                    <p>Not really: {{ notReally }}</p>
+                    <p>No: {{ no }}</p>
+                    <br />
+                    <p>Total votes: {{ totalVotes }}</p>
+
+                    {#<p> {{ 100*(yes/(yes+ok+notReally+no))|number_format(2) }} </p>#}
+                    <h1>Results:</h1>
+                    <p>Yes: <img src="{{ asset('bundles/bundleproject/images/poll.gif') }}" width="{{ 100*(yes/(yes+ok+notReally+no))|number_format(2) }}" height="20"/> {{ 100*(yes/(yes+ok+notReally+no))|number_format(2) }}%</p>
+                    <p>Ok: <img src="{{ asset('bundles/bundleproject/images/poll.gif') }}" width="{{ 100*(ok/(yes+ok+notReally+no))|number_format(2) }}" height="20"/> {{ 100*(ok/(yes+ok+notReally+no))|number_format(2) }}%</p>
+                    <p>NotR: <img src="{{ asset('bundles/bundleproject/images/poll.gif') }}" width="{{ 100*(notReally/(yes+ok+notReally+no))|number_format(2) }}" height="20"/>{{ 100*(notReally/(yes+ok+notReally+no))|number_format(2) }}%</p>
+                    <p>No: <img src="{{ asset('bundles/bundleproject/images/poll.gif') }}" width="{{ 100*(no/(yes+ok+notReally+no))|number_format(2) }}" height="20"/> {{ 100*(no/(yes+ok+notReally+no))|number_format(2) }}%</p>
+                {% endif %}
+            {% else %}
+                <form>
+                    {#
+                    <input id="votePath" type="hidden" value="{{ path('BundleProjectBundle_votee',{'vot':0}) }}" />
+                    #}
+                        Yes: <input type="radio" name="vote" value="0" onclick="getVote(this.value);">
+                    <br>It's ok:<input type="radio" name="vote" value="1" onclick="getVote(this.value);">
+                    <br>Not really: <input type="radio" name="vote" value="2" onclick="getVote(this.value);">
+                    <br>No: <input type="radio" name="vote" value="3" onclick="getVote(this.value);">
+                </form>
+            {% endif %}
+            
+        </div>
+    </article>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ asset('bundles/bundleproject/js/setVote.js') }}"></script>
+{% endblock %}

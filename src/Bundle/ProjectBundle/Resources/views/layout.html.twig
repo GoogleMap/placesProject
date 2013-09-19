@@ -1,0 +1,32 @@
+{# src/Blogger/BlogBundle/Resources/views/layout.html.twig  #}
+
+{# extend the base #}
+{% extends 'BundleProjectBundle::base.html.twig' %}
+
+{# add stylesheets - overload #}
+{% block stylesheets %}
+{{ parent() }}
+{#
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/bundleproject/css/form.css') }}" />
+#}
+{% endblock %}
+
+{% block sidebar %}
+    
+    <div class="sideDiv">
+        <h1 class="sideHeader">Search Box<h1>
+        <p>Query the site</p>
+     
+        <input type="text" name="searchBox" id="search" style="padding:3px" />
+        <br />
+        <button type="submit" style="padding: 5px; border-radius:5px; width:80px"><b>Search</b></button>
+        <br />
+    </div>
+   <div class="sideDiv">
+        <h1 class="sideHeader">Sidebar<h1>
+        <h2>Sidebar<h2>
+        <p>sidebar content</p>
+        <p>sidebar content</p>
+        <br />
+   </div>
+{% endblock %}

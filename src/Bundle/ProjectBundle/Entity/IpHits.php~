@@ -1,0 +1,48 @@
+<?php
+//src/Bundle/ProjectBundle/Entity/IpHits.php
+
+namespace Bundle\ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="ip_hits")
+ */
+
+class IpHits {
+
+    function __construct() {
+        
+    }
+    
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer", name="count", unique=true)
+     */
+    protected $count;
+
+
+    /**
+     * Set count
+     *
+     * @param integer $count
+     * @return IpHits
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+    
+        return $this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return integer 
+     */
+    public function getCount()
+    {
+        return $this->count;
+    }
+}

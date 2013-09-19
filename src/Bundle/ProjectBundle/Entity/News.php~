@@ -1,0 +1,217 @@
+<?php
+
+//src/Bundle/ProjectBundle/News.php
+
+namespace Bundle\ProjectBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="news")
+ */
+
+class News {
+
+    // var
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    protected $title;
+    
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    protected $author;
+    
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    protected $image;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $content;
+    
+    protected $comments = array();
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $updated;
+    
+    function __construct() {
+        
+    }
+    
+    
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return News
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return News
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return News
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+    
+    /**
+     * 
+     * @param type $content
+     * @return \Bundle\ProjectBundle\Entity\News
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return text
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+    
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return News
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return News
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+    
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+    }
+    public function getComments()
+    {
+        return $this->comments;
+    }
+}

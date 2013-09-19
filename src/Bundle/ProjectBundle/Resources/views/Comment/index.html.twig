@@ -1,0 +1,11 @@
+{# src/Bundle/ProjectBundle/Resources/Views/Comment/index.html.twig #}
+<div style="height: 250px; overflow: scroll; overflow-x: hidden">
+        {% for comment in comments %}
+        <div class="comment{{ cycle(['odd', 'even'], loop.index0) }}">
+            <h2><b>{{ comment.user|capitalize }}</b> <span>- on {{ comment.created|date('l, F j, Y @ H:i') }}</span></h2>
+            <p>{{ comment.comment }}</p>
+        </div>
+        {% else %}
+            <p>No comments for this post !</p>
+        {% endfor %}
+</div>

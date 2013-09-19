@@ -1,0 +1,153 @@
+{# src/Bundle/ProjectBundle/Resources/Views/Store/show.html.twig #}
+{% extends 'BundleProjectBundle::layout.html.twig' %}
+{% block title %} Store Info {% endblock %}
+{% block body %}  
+<article>
+    <hgoup>
+        <h1>Store Details</h1>
+    </hgoup>
+    <br />  
+   
+    {% for place in places %}
+    <p>{{ place.extId }}</p>
+    <p>{{ ip }}</p>
+        {# hidden types #}
+    <input id="name" type="hidden" value="{{ place.name }} - {{ place.type|capitalize }}" />
+        <input id="lat" type="hidden" value="{{ place.lat }}" />
+        <input id="lng" type="hidden" value="{{ place.lng }}" />
+        <input id="extId" type="hidden" value="{{ place.id }}" />
+        <input id="ip" type="hidden" value="{{ ip }}" />
+        
+        <div>
+           <div style="float:left">
+               <a href="{{ place.id|abs-1 }}">
+                   <img src="{{ asset('bundles/bundleproject/images/left.png') }}" width="50" height="50" title="Previous Store"/>
+               </a>
+           </div>
+           <div style="float:right">
+               <a href="{{ place.id|abs+1 }}">
+                   <img src="{{ asset('bundles/bundleproject/images/right.png') }}" width="50" height="50" title="Next Store"/>
+               </a>
+           </div>   
+        </div>
+        <br /> 
+        <div class="coffeStore" style="clear:both">
+            <p>Store id: {{ place.id }}</p>
+            {% if place.imgRef|length < 15 %}
+                <p>
+                    <img src="{{ asset('bundles/bundleproject/images/default.jpg') }}" title="No image found."/>
+                </p>            
+            {% else %}
+                <p>
+                    <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{ place.imgRef }}&sensor=true&key=AIzaSyCLRr7MJ5GMGRo0zRCs1azjafkQDIY23jc" />
+                </p>
+            {% endif %}
+            <a href="{{ path('BundleProjectBundle_places_showPlace', { 'id':place.id }) }}"/>{{ place.name }}</a>
+            <p>
+                <a href="{{ place.icon }}" target="_blank" title="{{ place.name }}">
+                    <img src="{{ place.icon }}"/>
+                </a>
+            </p>
+            <p><big>{{ place.name }}</big></p>
+            <p><b>Type: </b> {{ place.type }}</p>
+            <p><b>Addr: </b> {{ place.vicinity }}</p>
+            <p><b>Geo Location: </b><u>Lat. </u>{{ place.lat }}. <u>Lng.</u>{{ place.lng }}.</p>
+            {% if place.rating|length != 0 %}
+                <p><b>Ratings: <big><font color="green">{{ place.rating }}</font></b></big> / 5 points.</p>
+            {% else %}
+                <p><b>Ratings: </b> No ratings available for this store.</p>
+            {% endif %}
+            <p><b>Total comments: </b>{{ place.comments|length }}</p>
+        </div>
+       
+        <div id="voteSection">
+            <hgroup>
+                <h1>Vote section</h1>
+                <h2>Users ratings</h2>
+            </hgroup>
+            
+            {% if bool is defined %} {# client already voted ! #}
+                <p><b>Total votes: </b>{{ totalVotesAllTime }} votes (for all places)</p>
+                <p><b>Total votes: </b>{{ totalVotes }} vote(s).</p>
+                <p><b>Points / Stars:</b> <font color="green"><big>{{ usersRating }}</big></font></p>
+{% if usersRating < 2%}
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+     <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+      <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+       <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+        <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+    
+{% elseif usersRating < 3 %}
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+     <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+      <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+       <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+{% elseif usersRating < 4 %}
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+     <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+      <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+{% elseif usersRating < 5 %}
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+     <img src="{{ asset('bundles/bundleproject/images/blank_star.png') }}" width="30" height="30" />
+{% elseif usersRating == 5 %}
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+    <img src="{{ asset('bundles/bundleproject/images/star.png') }}" width="30" height="30" />
+{% endif %}
+            {% else %}
+                <p>Select a star</p>
+            <form>
+                <br />1<input type="radio" name="vote" value="1" onclick="setVote(this.value);">
+                2<input type="radio" name="vote" value="2" onclick="setVote(this.value);">
+                3<input type="radio" name="vote" value="3" onclick="setVote(this.value);">
+                4<input type="radio" name="vote" value="4" onclick="setVote(this.value);">
+                5<input type="radio" name="vote" value="5" onclick="setVote(this.value);">
+            </form>
+            {% endif %}
+        </div>
+        
+        <br />
+        <h1>Map</h1>
+        <br />
+        <div id="googleMap" style="width:625px;height:380px; border:2px solid black; border-radius:5px"></div>
+        <p id="lati"></p>
+    {% endfor %}
+</article>
+<article>
+    <hgroup>
+        <h1>Comments</h1>
+        <h2>Users thoughts about this place.</h2>
+    </hgroup>
+    <div id="flip">Show / Hide Comments</div>
+    {# include comments view #}
+    <div id="panel">
+        {% include 'BundleProjectBundle:Comment:index.html.twig' with {'comments':comments} %}
+    </div>
+</article>
+<article>
+   
+    <hgroup>
+        <h1>Comments</h1>
+        <h2>Share your thoughts about this place.</h2>
+    </hgroup>
+    <div id="flip1">Show / Hide Comment Form</div>
+    <div id="panel1">
+      {{ render(controller( 'BundleProjectBundle:Comment:new', { 'place_id': id } )) }}
+    </div>
+    
+</article>
+{% endblock %}
+
+{% block javascript %} 
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script src="{{ asset('bundles/bundleproject/js/loadMap.js') }}"></script>   
+<script src="{{ asset('bundles/bundleproject/js/processingVote.js') }}"></script>
+{% endblock %}

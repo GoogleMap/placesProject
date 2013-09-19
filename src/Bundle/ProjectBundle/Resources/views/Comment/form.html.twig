@@ -1,0 +1,8 @@
+{# src/Bundle/ProjectBundle/Resources/views/Comment/form.html.twig #}
+
+<form action="{{ path('BundleProjectBundle_comment_create', { 'place_id' : comment.place.id } ) }}" method="post" {{ form_enctype(form) }} class="global_forms">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>

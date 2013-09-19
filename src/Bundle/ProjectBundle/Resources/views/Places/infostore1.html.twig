@@ -1,0 +1,92 @@
+{# src/Bundle/ProjectBundle/Resources/Views/Store/infostore.html.twig #}
+{% extends 'BundleProjectBundle::layout.html.twig' %}
+
+{% block title %} InfoStore {% endblock %}
+
+{% block body %}
+<article>
+    <hgroup>
+        <h1>Info Store</h1>
+        <h2><big>Coffe, Restaurants, Gym, etc. stores near Cluj-N.</big></h2>
+        <h2><i>Query found <b>{{ storeCount }}</b> different stores.</i></h2>
+    </hgroup>
+    <br />
+    <div id="storeContainer">
+        {% for cafeStore in coffeStores %}
+            <div class="store" style="display:none">
+                <p>Store id: {{ cafeStore.id }}</p>
+                <a href="{{ path('BundleProjectBundle_store_showStore', { 'id':cafeStore.id }) }}"/>{{ cafeStore.name }}</a>
+                <p>
+                    <a href="{{ cafeStore.icon }}" target="_blank" title="{{ cafeStore.name }}">
+                        <img src="{{ cafeStore.icon }}"/>
+                    </a>
+                </p>
+                <p>{{ cafeStore.name }}</p>
+                <p><b>Type: </b> {{ cafeStore.type }}</p>
+                <p><b>Addr: </b> {{ cafeStore.vicinity }}</p>
+                <p><b>Geo Location: </b><u>Lat. </u>{{ cafeStore.lat }}. <u>Lng.</u>{{ cafeStore.lng }}.</p>
+                <p><b>Ratings: </b>{{ cafeStore.rating }} points.</p>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="loadAnimation" style="display:none">Loading...</div>    
+
+        <button onclick="loadMoreStores();" style="padding:10px; border: 2px solid black; border-radius: 5px; background: #6d6; font-weight: bold; width:200px; margin-bottom: 10px">Load some stores</button>
+        
+        
+    </article>
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="sideDiv">
+        <h1 class="sideHeader">Sidebar<h1>
+        <h2>Sidebar<h2>
+        <p>sidebar content</p>
+        <p>sidebar content</p>
+        <br />
+   </div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+    function loadMoreStores(startIndex, stopIndex){
+        //$('.store').slice(0, 5).show();
+        if (window.XMLHttpRequest) {
+            xmlhttp=new XMLHttpRequest();
+        } else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState===4 && xmlhttp.status===200) {
+                document.getElementById("storeContainer").innerHTML=xmlhttp.responseText;
+            } else {
+                //document.getElementById("storeContainer").innerHTML="aa";
+            }
+        };
+        
+        // total stores
+        total = $(".store.hidden").length;
+        startIndex = $(".store:visible").length;
+        //alert(startIndex);
+        
+        stopIndex = startIndex + 3;
+        //alert(stopIndex);
+        paramToSend = startIndex+","+stopIndex;
+        //alert(paramToSend);
+        
+        
+        requestPath = "/MyProject/web/app_dev.php/moreStoresRequest/"+paramToSend;
+        //alert(requestPath);
+        
+        //statIndex = startIndex + 5;
+        xmlhttp.open("POST",requestPath);
+        xmlhttp.send();
+    }
+    
+    
+</script>
+
+{% endblock %}

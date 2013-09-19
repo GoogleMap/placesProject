@@ -1,0 +1,72 @@
+# src/Bundle/ProjectBundle/Resources/config/routing.yml
+
+#Preload method
+BundleProjectBundle_preLoad:
+    pattern:  /
+    defaults: { _controller: BundleProjectBundle:Page:preLoad }
+#Home   
+BundleProjectBundle_index:
+    pattern:  /home
+    defaults: { _controller: BundleProjectBundle:Page:index }
+    requirements:
+        _method:  GET
+
+#About
+BundleProjectBundle_about:
+    pattern:  /about
+    defaults: { _controller: BundleProjectBundle:Page:about }
+    requirements:
+        _method:  GET
+        
+#Credit
+BundleProjectBundle_credit:
+    pattern:  /credit
+    defaults: { _controller: BundleProjectBundle:Page:credit }
+    requirements:
+        _method:  GET
+        
+# Cafe stores
+BundleProjectBundle_places:
+    pattern:  /places
+    defaults: { _controller: BundleProjectBundle:Place:places }
+    requirements:
+        _method:  GET|POST
+BundleProjectBundle_places_showPlace:
+    pattern:  /places/{id}
+    defaults: { _controller: BundleProjectBundle:Place:showPlace }
+    requirements:
+        _method:  GET
+        id: \d+
+  
+# Forms Controller
+#Create comment route
+BundleProjectBundle_comment_create:
+    pattern:  /comment/{place_id}
+    defaults: { _controller: BundleProjectBundle:Comment:create }
+    requirements:
+        _method:  POST
+        store_id: \d+
+        
+#Search by rating route
+BundleProjectBundle_search:
+    pattern:  /places/search
+    defaults: { _controller: BundleProjectBundle:Forms:search }
+    requirements:
+        _method:  POST
+        
+#Vote - POST REQUESTS
+BundleProjectBundle_votee:
+    pattern:  /votee/{vot}
+    defaults: { _controller: BundleProjectBundle:Forms:votee }
+    requirements:
+        _method:  POST
+BundleProjectBundle_setVote:
+    pattern:  /setVote/{vot}
+    defaults: { _controller: BundleProjectBundle:Forms:setVote }
+    requirements:
+        _method:  POST
+BundleProjectBundle_moreStoresRequest:
+    pattern:  /moreStoresRequest/{param}
+    defaults: { _controller: BundleProjectBundle:Forms:moreStoresRequest }
+    requirements:
+        _method:  POST

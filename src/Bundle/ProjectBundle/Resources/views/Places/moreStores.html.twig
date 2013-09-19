@@ -1,0 +1,19 @@
+<p>{{ start }}</p>
+<p>{{ end }}</p>
+
+{% for cafeStore in coffeStores %}
+<div class="store">
+    <p>Store id: {{ cafeStore.id }}</p>
+        <a href="{{ path('BundleProjectBundle_store_showStore', { 'id':cafeStore.id }) }}"/>{{ cafeStore.name }}</a>
+    <p>
+    <a href="{{ cafeStore.icon }}" target="_blank" title="{{ cafeStore.name }}">
+        <img src="{{ cafeStore.icon }}"/>
+    </a>
+    </p>
+    <p>{{ cafeStore.name }}</p>
+    <p><b>Type: </b> {{ cafeStore.type }}</p>
+    <p><b>Addr: </b> {{ cafeStore.vicinity }}</p>
+    <p><b>Geo Location: </b><u>Lat. </u>{{ cafeStore.lat }}. <u>Lng.</u>{{ cafeStore.lng }}.</p>
+    <p><b>Ratings: </b>{{ cafeStore.rating }} points.</p>
+</div>
+{% endfor %}
